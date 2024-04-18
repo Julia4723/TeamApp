@@ -64,6 +64,7 @@ final class NetworkManager {
         
     }
     
+    
    /*
     func fetchImage(from url: URL, completion: @escaping(Result<Data, NetworkError>) -> Void) {
         DispatchQueue.global().async {
