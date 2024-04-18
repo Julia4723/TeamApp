@@ -136,7 +136,7 @@
         <!--Home-->
         <scene sceneID="50Z-Id-4dT">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="tEY-A9-rnF" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="tEY-A9-rnF" customClass="TabBarViewController" customModule="TeamApp" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Home" id="W1k-q3-lkA"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="TpW-Bc-rpQ">

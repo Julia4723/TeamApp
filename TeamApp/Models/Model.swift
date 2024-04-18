@@ -10,6 +10,7 @@ import Foundation
 struct PokemonApp: Decodable {
     let info: Info
     let results: [Pokemon]
+    
 }
 
 struct Info: Decodable {

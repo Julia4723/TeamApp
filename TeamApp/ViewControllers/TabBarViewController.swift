@@ -12,15 +12,21 @@ final class TabBarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupViewControllers()
+        
     }
     
     
-    /*
+
     // Для передачи данных между таббаами
     private func setupViewControllers() {
-        guard let CharacterTableVC = viewControllers?.CharactersTableViewController else { return }
-        guard let SettingsVC = viewControllers?.SettingsViewController else { return }
+        guard let characterTableVC = viewControllers?.first as? CharactersTableViewController else { return }
+        guard let settingsVC = viewControllers?.last as? SettingsViewController else { return }
+        
     }
-     */
+    
+    
+
+     
 }
 
