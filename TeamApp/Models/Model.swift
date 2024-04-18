@@ -1,0 +1,48 @@
+//
+//  Model.swift
+//  TeamApp
+//
+//  Created by user on 17.04.2024.
+//
+
+import Foundation
+
+struct PokemonApp: Decodable {
+    let info: Info
+    let results: [Pokemon]
+}
+
+struct Info: Decodable {
+    let pages: Int
+    let next: URL?
+    let previous: URL?
+}
+
+struct Pokemon: Decodable {
+    let name: String
+    let url: String
+    
+    var description: String {
+        """
+Name: \(name)
+"""
+    }
+}
+
+struct Character: Decodable {
+    let sprites: Sprites
+}
+
+struct Sprites: Decodable {
+    let other: Home
+}
+
+struct Home: Decodable {
+    let home: Front
+}
+
+struct Front: Decodable {
+    let front_default: String
+}
+
+

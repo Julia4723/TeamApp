@@ -1,0 +1,130 @@
+//
+//  CharactersTableViewController.swift
+//  TeamApp
+//
+//  Created by user on 17.04.2024.
+//
+
+import UIKit
+
+final class CharactersTableViewController: UITableViewController {
+    
+    //MARK: Private properties
+    private let networkManager = NetworkManager.shared
+    private var myPokemon: PokemonApp?
+    private let searchController = UISearchController(searchResultsController: nil)
+    private var filteredPokemon: [Pokemon] = []
+    private var searchBarIsEmpty: Bool {
+        guard let text = searchController.searchBar.text else { return false }
+        return text.isEmpty
+    }
+    private var isFiltering: Bool {
+        return searchController.isActive && !searchBarIsEmpty
+    }
+    
+    
+    
+    
+    // MARK: - View Life Cycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tableView.rowHeight = 80
+        tableView.backgroundColor = .white
+        
+        setupSearchController()
+        fetchData()
+        
+        
+        
+        
+    }
+    
+    //MARK: - Navigation
+    // Здесь будем подготавливать данные для передачи на экран с детальной инфой
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let indexPath = tableView.indexPathForSelectedRow else { return }
+        let pokemon = isFiltering 
+        ? filteredPokemon[indexPath.row]
+        : myPokemon?.results[indexPath.row]
+        guard let characterDetailsVC = segue.destination as? CharacterDetailsViewController else { return}
+        characterDetailsVC.pokemon = pokemon
+       // characterDetailsVC.name = name[indexPath.row] //передаем индекс текущей строки
+    }
+    
+    
+    
+    
+    
+    
+    // MARK: - Private methods
+    private func setupSearchController() {
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search"
+        searchController.searchBar.barTintColor = .white
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
+        
+        if let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField {
+            textField.font = UIFont.boldSystemFont(ofSize: 17)
+            textField.textColor = .white
+        }
+    }
+    
+    private func fetchData() {
+        networkManager.fetch(PokemonApp.self, from: PokemonAPI.baseURL.rawValue) { [weak self] result in
+            switch result {
+            case .success(let pokemon):
+                self?.myPokemon = pokemon
+                self?.tableView.reloadData()
+                
+            case .failure(let error):
+                print(error)
+            }
+        }
+        
+    }
+    
+    
+    
+    
+    
+}
+
+// MARK: - UITableViewDataSource
+extension CharactersTableViewController {
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        isFiltering ? filteredPokemon.count : myPokemon?.results.count ?? 0
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        guard let cell = cell as? TableViewCell else { return UITableViewCell() }
+        let pokemon = isFiltering
+        ? filteredPokemon[indexPath.row]
+        : myPokemon?.results[indexPath.row]
+        //cell.configure(with: pokemon ?? default value)
+        return cell
+        
+        
+        
+    }
+    
+    
+    
+}
+
+// MARK: - UISearchResultsUpdating
+extension CharactersTableViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        filterContentForSearchText(searchController.searchBar.text ?? "")
+    }
+    
+    private func filterContentForSearchText(_ searchText: String) {
+        filteredPokemon = myPokemon?.results.filter { pokemon in
+            pokemon.name.lowercased().contains(searchText.lowercased())
+        } ?? []
+        
+        tableView.reloadData()
+    }
+}
