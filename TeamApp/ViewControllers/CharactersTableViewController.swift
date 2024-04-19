@@ -10,8 +10,11 @@ import UIKit
 final class CharactersTableViewController: UITableViewController {
     
     //MARK: Private properties
+    var pokemons: [Pokemon]!
+    
     private let networkManager = NetworkManager.shared
     private var myPokemon: PokemonApp?
+
     private let searchController = UISearchController(searchResultsController: nil)
     private var filteredPokemon: [Pokemon] = []
     private var searchBarIsEmpty: Bool {
@@ -32,7 +35,7 @@ final class CharactersTableViewController: UITableViewController {
         tableView.backgroundColor = .white
         
         setupSearchController()
-        fetchData()
+        fetchData(from: PokemonAPI.baseURL.url)
         
         
         
@@ -71,8 +74,8 @@ final class CharactersTableViewController: UITableViewController {
         }
     }
     
-    private func fetchData() {
-        networkManager.fetch(PokemonApp.self, from: PokemonAPI.baseURL.rawValue) { [weak self] result in
+    private func fetchData(from url: URL?) {
+        networkManager.fetch(PokemonApp.self, from: url) { [weak self] result in
             switch result {
             case .success(let pokemon):
                 self?.myPokemon = pokemon
@@ -100,10 +103,10 @@ extension CharactersTableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         guard let cell = cell as? TableViewCell else { return UITableViewCell() }
-        let pokemon = isFiltering
-        ? filteredPokemon[indexPath.row]
-        : myPokemon?.results[indexPath.row]
-        //cell.configure(with: pokemon ?? default value)
+        let pokemon = (isFiltering
+                       ? filteredPokemon[indexPath.row]
+                       : myPokemon?.results[indexPath.row])!
+        cell.configure(with: pokemon)
         return cell
         
         

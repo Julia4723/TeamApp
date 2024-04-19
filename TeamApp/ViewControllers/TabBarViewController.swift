@@ -9,6 +9,8 @@ import UIKit
 
 final class TabBarViewController: UITabBarController {
     
+    private let networkManager = NetworkManager.shared
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -22,6 +24,7 @@ final class TabBarViewController: UITabBarController {
     private func setupViewControllers() {
         guard let characterTableVC = viewControllers?.first as? CharactersTableViewController else { return }
         guard let settingsVC = viewControllers?.last as? SettingsViewController else { return }
+
         
     }
     

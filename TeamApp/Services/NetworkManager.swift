@@ -13,9 +13,7 @@ enum NetworkError: Error {
     case decodingError
 }
 
-enum PokemonAPI: String {
-    case baseURL = "https://pokeapi.co/api/v2/pokemon"
-}
+
 
 final class NetworkManager {
     
@@ -23,8 +21,8 @@ final class NetworkManager {
     
     private init() {}
     
-    func fetch<T: Decodable>(_ type: T.Type, from url: String, with completion: @escaping(Result<T, NetworkError>) -> Void) {
-        guard let url = URL(string: url) else {
+    func fetch<T: Decodable>(_ type: T.Type, from url: URL?, with completion: @escaping(Result<T, NetworkError>) -> Void) {
+        guard let url = url else {
             completion(.failure(.invalidURL))
             return
         }
@@ -52,9 +50,7 @@ final class NetworkManager {
     }
     
     
-    func fetchImage(from url: String, completion: @escaping(Data) -> Void) {
-        
-        guard let url = URL(string: url) else { return }
+    func fetchImage(from url: URL, completion: @escaping(Data) -> Void) {
         DispatchQueue.global().async {
             guard let imageData = try? Data(contentsOf: url) else {return}
             DispatchQueue.main.async {

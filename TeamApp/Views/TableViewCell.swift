@@ -25,9 +25,6 @@ final class TableViewCell: UITableViewCell {
     // MARK: - Public methods
     func configure(with pokemon: Pokemon) {
         nameLabel.text = pokemon.name
-        networkManager.fetchImage(from: PokemonAPI.baseURL.rawValue) { data in
-            self.pokemonImageView.image = UIImage(data: data)
-        }
            
     }
         
