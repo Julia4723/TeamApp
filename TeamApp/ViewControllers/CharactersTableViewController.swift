@@ -55,6 +55,14 @@ final class CharactersTableViewController: UITableViewController {
        // characterDetailsVC.name = name[indexPath.row] //передаем индекс текущей строки
     }
     
+   /*
+    // MARK: - IB Actions
+    @IBAction func updateData(_ sender: UIBarButtonItem) {
+        sender.tag == 1
+        ? fetchData(from: myPokemon?.next)
+        : fetchData(from: myPokemon?.previous)
+    }
+    */
     
     
     
@@ -74,6 +82,10 @@ final class CharactersTableViewController: UITableViewController {
             textField.textColor = .white
         }
     }
+    
+    
+    
+    
     
     private func fetchData(from url: URL?) {
         networkManager.fetch(PokemonApp.self, from: url) { [weak self] result in
@@ -103,18 +115,20 @@ extension CharactersTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
+        isFiltering ? filteredPokemon.count : myPokemon?.results.count ?? 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cellUI", for: indexPath)
-        var config = cell.defaultContentConfiguration()
+        let cell = tableView.dequeueReusableCell(
+            withIdentifier: "cell",
+            for: indexPath
+        )
         
-        config.image = UIImage(systemName: pokemonsMock[indexPath.section].pokemonImage)
-        config.text = pokemonsMock[indexPath.section].pokemonName
-        
-        cell.contentConfiguration = config
-        
+        guard let cell = cell as? TableViewCell else { return UITableViewCell() }
+        let pokemon = (isFiltering
+        ? filteredPokemon[indexPath.row]
+        : myPokemon?.results[indexPath.row])
+        cell.configure(with: pokemon)
         return cell
         
         

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="1Ze-mx-usL">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="1Ze-mx-usL">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -34,7 +36,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="80" id="TK0-Hm-lWt" customClass="TableViewCell" customModule="TeamApp" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="80" id="TK0-Hm-lWt" customClass="TableViewCell" customModule="TeamApp">
                                 <rect key="frame" x="0.0" y="50" width="393" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="TK0-Hm-lWt" id="cRG-0y-O1j">
@@ -76,7 +78,14 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Home" image="house" catalog="system" id="lNk-PS-ICR"/>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="ouY-wE-XhN"/>
+                    <navigationItem key="navigationItem" title="Root View Controller" id="ouY-wE-XhN">
+                        <barButtonItem key="leftBarButtonItem" title="Prev" id="jAN-BC-dr2">
+                            <color key="tintColor" name="AccentColor"/>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" tag="1" title="Next" id="L4c-ot-DzL">
+                            <color key="tintColor" name="AccentColor"/>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Dn-Wy-3l5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -90,13 +99,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xHT-gD-4Wo">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xHT-gD-4Wo">
                                 <rect key="frame" x="96" y="131" width="200" height="200"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AwP-hG-L8c">
-                                <rect key="frame" x="16" y="400" width="42" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AwP-hG-L8c">
+                                <rect key="frame" x="16" y="400" width="361" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -104,6 +111,16 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="bDI-b1-WxQ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="AwP-hG-L8c" firstAttribute="leading" secondItem="bDI-b1-WxQ" secondAttribute="leading" constant="16" id="0zV-XI-srZ"/>
+                            <constraint firstItem="AwP-hG-L8c" firstAttribute="top" secondItem="xHT-gD-4Wo" secondAttribute="bottom" constant="69" id="3YK-rB-Bst"/>
+                            <constraint firstItem="xHT-gD-4Wo" firstAttribute="leading" secondItem="bDI-b1-WxQ" secondAttribute="leading" constant="96" id="7oU-bx-QNj"/>
+                            <constraint firstItem="xHT-gD-4Wo" firstAttribute="top" secondItem="oWe-Gf-E9b" secondAttribute="top" constant="131" id="Jdt-gL-HcR"/>
+                            <constraint firstItem="bDI-b1-WxQ" firstAttribute="trailing" secondItem="xHT-gD-4Wo" secondAttribute="trailing" constant="97" id="R55-tV-HlK"/>
+                            <constraint firstItem="bDI-b1-WxQ" firstAttribute="trailing" secondItem="AwP-hG-L8c" secondAttribute="trailing" constant="16" id="Umb-3s-3un"/>
+                            <constraint firstItem="AwP-hG-L8c" firstAttribute="top" secondItem="bDI-b1-WxQ" secondAttribute="top" constant="245" id="Z5d-HJ-Qgs"/>
+                            <constraint firstItem="bDI-b1-WxQ" firstAttribute="bottom" secondItem="AwP-hG-L8c" secondAttribute="bottom" constant="397" id="Zxf-0B-DRA"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="QZZ-l2-TcP"/>
                     <connections>
@@ -140,6 +157,7 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Home" id="W1k-q3-lkA"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="TpW-Bc-rpQ">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
@@ -156,6 +174,9 @@
     <resources>
         <image name="gearshape" catalog="system" width="128" height="123"/>
         <image name="house" catalog="system" width="128" height="104"/>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

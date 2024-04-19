@@ -23,8 +23,9 @@ final class TableViewCell: UITableViewCell {
     private let networkManager = NetworkManager.shared
     
     // MARK: - Public methods
-    func configure(with pokemon: Pokemon) {
-        nameLabel.text = pokemon.name
+    func configure(with pokemon: Pokemon?) {
+        nameLabel.text = pokemon?.name
+        
            
     }
         
