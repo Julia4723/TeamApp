@@ -11,7 +11,6 @@ final class CharactersTableViewController: UITableViewController {
     
     //MARK: Private properties
     var pokemons: [Pokemon]!
-    var pokemonsMock: [MockDataPokemon] = []
     
     private let networkManager = NetworkManager.shared
     private var myPokemon: PokemonApp?
@@ -33,7 +32,7 @@ final class CharactersTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = 80
-        tableView.backgroundColor = .white
+        tableView.backgroundColor = .systemBackground
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellUI")
         setupSearchController()
         fetchData(from: PokemonAPI.baseURL.url)
@@ -110,8 +109,7 @@ final class CharactersTableViewController: UITableViewController {
 // MARK: - UITableViewDataSource
 extension CharactersTableViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
-        pokemonsMock.count
-//        isFiltering ? filteredPokemon.count : myPokemon?.results.count ?? 0
+        isFiltering ? filteredPokemon.count : myPokemon?.results.count ?? 0
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -119,16 +117,19 @@ extension CharactersTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(
-            withIdentifier: "cell",
-            for: indexPath
-        )
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellUI", for: indexPath)
+        var config = cell.defaultContentConfiguration()
         
-        guard let cell = cell as? TableViewCell else { return UITableViewCell() }
+//        guard let cell = cell as? TableViewCell else { return UITableViewCell() }
         let pokemon = (isFiltering
         ? filteredPokemon[indexPath.row]
         : myPokemon?.results[indexPath.row])
-        cell.configure(with: pokemon)
+        config.text = pokemon?.name ?? "pikachu"
+        print(pokemon?.url ?? "pikachu")
+        
+        cell.contentConfiguration = config
+//        cell.configure(with: pokemon)
+        
         return cell
         
         

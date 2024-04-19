@@ -30,9 +30,6 @@ final class TabBarViewController: UITabBarController {
         
         viewControllers = [charactersTableVC, settingsVC]
         self.navigationItem.title = "Home"
-        
-        let pokemonsMock = MockDataPokemon.makeRandomList()
-        charactersTableVC.pokemonsMock = pokemonsMock
     }
 }
 
