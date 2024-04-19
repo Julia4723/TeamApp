@@ -11,6 +11,7 @@ final class CharactersTableViewController: UITableViewController {
     
     //MARK: Private properties
     var pokemons: [Pokemon]!
+    var pokemonsMock: [MockDataPokemon] = []
     
     private let networkManager = NetworkManager.shared
     private var myPokemon: PokemonApp?
@@ -33,13 +34,13 @@ final class CharactersTableViewController: UITableViewController {
         super.viewDidLoad()
         tableView.rowHeight = 80
         tableView.backgroundColor = .white
-        
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellUI")
         setupSearchController()
         fetchData(from: PokemonAPI.baseURL.url)
-        
-        
-        
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     //MARK: - Navigation
@@ -97,17 +98,33 @@ final class CharactersTableViewController: UITableViewController {
 // MARK: - UITableViewDataSource
 extension CharactersTableViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
-        isFiltering ? filteredPokemon.count : myPokemon?.results.count ?? 0
+        pokemonsMock.count
+//        isFiltering ? filteredPokemon.count : myPokemon?.results.count ?? 0
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        1
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        guard let cell = cell as? TableViewCell else { return UITableViewCell() }
-        let pokemon = (isFiltering
-                       ? filteredPokemon[indexPath.row]
-                       : myPokemon?.results[indexPath.row])!
-        cell.configure(with: pokemon)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellUI", for: indexPath)
+        var config = cell.defaultContentConfiguration()
+        
+        config.image = UIImage(systemName: pokemonsMock[indexPath.section].pokemonImage)
+        config.text = pokemonsMock[indexPath.section].pokemonName
+        
+        cell.contentConfiguration = config
+        
         return cell
+        
+        
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "cellUI", for: indexPath)
+//        guard let cell = cell as? TableViewCell else { return UITableViewCell() }
+//        let pokemon = (isFiltering
+//                       ? filteredPokemon[indexPath.row]
+//                       : myPokemon?.results[indexPath.row])!
+//        cell.configure(with: pokemon)
+//        return cell
         
         
         

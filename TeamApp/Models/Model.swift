@@ -57,3 +57,42 @@ enum PokemonAPI {
     }
     
 }
+
+struct MockDataPokemon {
+    var pokemonName: String
+    var pokemonImage: String
+    
+    static func makeRandomList() -> [MockDataPokemon] {
+        let dataStore = DataStore()
+        var pokemons: [MockDataPokemon] = []
+        
+        let pokemonNames = dataStore.pokemonNames.shuffled()
+        let pokemonImages = dataStore.pokemonImages.shuffled()
+
+        
+        for index in 0..<pokemonNames.count {
+            let pokemon = MockDataPokemon(
+                pokemonName: pokemonNames[index],
+                pokemonImage: pokemonImages[index]
+            )
+            
+            pokemons.append(pokemon)
+        }
+        
+        return pokemons
+    }
+}
+
+class DataStore {
+    let pokemonNames = [
+        "pikachu",
+        "charmander"
+    ]
+    
+    let pokemonImages = [
+        "person.fill",
+        "gear"
+    ]
+}
+
+
