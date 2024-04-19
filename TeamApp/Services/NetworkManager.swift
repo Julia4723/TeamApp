@@ -41,6 +41,7 @@ final class NetworkManager {
                 }
                 
             } catch {
+                print("Ошибка декодирования \(error)")
                 completion(.failure(.decodingError))
                 
             }

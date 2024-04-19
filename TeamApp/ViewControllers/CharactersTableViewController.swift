@@ -9,8 +9,6 @@ import UIKit
 
 final class CharactersTableViewController: UITableViewController {
     
-    //MARK: Private properties
-    var pokemons: [Pokemon]!
     
     private let networkManager = NetworkManager.shared
     private var myPokemon: PokemonApp?
@@ -54,6 +52,14 @@ final class CharactersTableViewController: UITableViewController {
        // characterDetailsVC.name = name[indexPath.row] //передаем индекс текущей строки
     }
     
+   /*
+    // MARK: - IB Actions
+    @IBAction func updateData(_ sender: UIBarButtonItem) {
+        sender.tag == 1
+        ? fetchData(from: myPokemon?.next)
+        : fetchData(from: myPokemon?.previous)
+    }
+    */
     
     
     
@@ -73,6 +79,10 @@ final class CharactersTableViewController: UITableViewController {
             textField.textColor = .white
         }
     }
+    
+    
+    
+    
     
     private func fetchData(from url: URL?) {
         networkManager.fetch(PokemonApp.self, from: url) { [weak self] result in
@@ -96,16 +106,20 @@ final class CharactersTableViewController: UITableViewController {
 
 // MARK: - UITableViewDataSource
 extension CharactersTableViewController {
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         isFiltering ? filteredPokemon.count : myPokemon?.results.count ?? 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(
+            withIdentifier: "cell",
+            for: indexPath
+        )
+        
         guard let cell = cell as? TableViewCell else { return UITableViewCell() }
         let pokemon = (isFiltering
-                       ? filteredPokemon[indexPath.row]
-                       : myPokemon?.results[indexPath.row])!
+        ? filteredPokemon[indexPath.row]
+        : myPokemon?.results[indexPath.row])
         cell.configure(with: pokemon)
         return cell
         

@@ -8,16 +8,11 @@
 import Foundation
 
 struct PokemonApp: Decodable {
-    let info: Info
-    let results: [Pokemon]
-    
-}
-
-struct Info: Decodable {
-    let pages: Int
     let next: URL?
     let previous: URL?
+    let results: [Pokemon]
 }
+
 
 struct Pokemon: Decodable {
     let name: String
@@ -30,13 +25,16 @@ Name: \(name)
     }
 }
 
+
 struct Character: Decodable {
     let sprites: Sprites
 }
 
+
 struct Sprites: Decodable {
     let other: Home
 }
+
 
 struct Home: Decodable {
     let home: Front
