@@ -44,16 +44,6 @@ struct Front: Decodable {
     let front_default: String
 }
 
-enum PokemonAPI {
-    case baseURL
-    
-    var url: URL {
-        switch self {
-        case .baseURL:
-            return URL(string: "https://pokeapi.co/api/v2/pokemon")!
-        }
-    }
-    
-}
+
 
 

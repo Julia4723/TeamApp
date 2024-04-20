@@ -36,7 +36,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="80" id="TK0-Hm-lWt" customClass="TableViewCell" customModule="TeamApp">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellUI" rowHeight="80" id="TK0-Hm-lWt" customClass="TableViewCell" customModule="TeamApp">
                                 <rect key="frame" x="0.0" y="50" width="393" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="TK0-Hm-lWt" id="cRG-0y-O1j">
@@ -68,7 +68,7 @@
                                 <connections>
                                     <outlet property="nameLabel" destination="Kvl-fD-Gje" id="ls0-2M-JgW"/>
                                     <outlet property="pokemonImageView" destination="ulT-Fk-YHA" id="V1M-a2-21f"/>
-                                    <segue destination="dtV-Bf-VL0" kind="show" id="kfL-ek-XDB"/>
+                                    <segue destination="dtV-Bf-VL0" kind="show" identifier="showDetail" id="kfL-ek-XDB"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

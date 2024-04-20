@@ -13,67 +13,54 @@ enum NetworkError: Error {
     case decodingError
 }
 
+enum PokemonAPI: String {
+    case url = "https://pokeapi.co/api/v2/pokemon"
+        }
 
 
 final class NetworkManager {
     
     static let shared = NetworkManager()
+        
     
-    private init() {}
-    
-    func fetch<T: Decodable>(_ type: T.Type, from url: URL?, with completion: @escaping(Result<T, NetworkError>) -> Void) {
-        guard let url = url else {
-            completion(.failure(.invalidURL))
+    func fetch<T: Decodable>(dataType: T.Type, url: String, completion: @escaping(T) -> Void) {
+        guard let url = URL(string: url) else {
             return
         }
         
         URLSession.shared.dataTask(with: url) { data, _, error in
-            guard let data else {
-                completion(.failure(.noData))
-                print(error?.localizedDescription ?? "No error description")
+            guard let data = data else {
                 return
             }
             
             do {
-                let dataModel = try JSONDecoder().decode(T.self, from: data)
+                let decoder = JSONDecoder()
+                let type = try decoder.decode(T.self, from: data)
                 DispatchQueue.main.async {
-                    completion(.success(dataModel))
+                    completion(type)
                 }
                 
             } catch {
                 print("Ошибка декодирования \(error)")
-                completion(.failure(.decodingError))
                 
             }
             
         }.resume()
         
     }
-    
-    
-    func fetchImage(from url: URL, completion: @escaping(Data) -> Void) {
+        
+    func fetchImage(from url: String, completion: @escaping(Data) -> Void) {
+            guard let url = URL(string: url) else {return}
         DispatchQueue.global().async {
-            guard let imageData = try? Data(contentsOf: url) else {return}
+            guard let imageData = try? Data(contentsOf: url) else { return}
             DispatchQueue.main.async {
                 completion(imageData)
             }
         }
-        
     }
     
+    private init() {}
     
-   /*
-    func fetchImage(from url: URL, completion: @escaping(Result<Data, NetworkError>) -> Void) {
-        DispatchQueue.global().async {
-            guard let imageData = try? Data(contentsOf: url) else {
-                completion(.failure(.noData))
-                return
-
-            }
-            DispatchQueue.main.async {
-                completion(.success(imageData))
-            }
-        }
-    }
-    */
 }
+        
+
